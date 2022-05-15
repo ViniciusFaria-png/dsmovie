@@ -1,9 +1,9 @@
-import Pagination from "components/Pagination"
-import MovieCard from "components/MovieCard";
 import axios from "axios";
-import {BASE_URL} from "utils/requests"
-import { useEffect, useState } from "react";
-import {MoviePage} from "types/movie";
+import { useState, useEffect } from "react";
+import MovieCard from "components/MovieCard";
+import Pagination from "components/Pagination";
+import { BASE_URL } from "utils/requests";
+import { MoviePage } from "types/movie";
 
 function Listing() {
 
@@ -29,23 +29,26 @@ function Listing() {
             });
     }, [pageNumber]);
 
+    const handlePageChange = (newPageNumber : number) => {
+        setPageNumber(newPageNumber);
+    }
 
     return (
         <>
-            <Pagination />
+            <Pagination page={page} onChange={handlePageChange} />
 
-            <div className="container" >
+            <div className="container">
                 <div className="row">
                     {page.content.map(movie => (
                         <div key={movie.id} className="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                            <MovieCard movie={movie} />      
-                        </div>                      
+                            <MovieCard movie={movie} />
+                        </div>
                     )
                     )}
                 </div>
             </div>
         </>
-    )
+    );
 }
 
 export default Listing;
